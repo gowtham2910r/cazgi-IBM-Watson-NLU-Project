@@ -3,6 +3,6 @@ applications:
 - path: .
   name: sentiment-analyzer-gowtham2910r-209
   buildpack: sdk-for-nodejs
-  memory: 256M
+  memory: 64M
   instances: 1
   random-route: true
