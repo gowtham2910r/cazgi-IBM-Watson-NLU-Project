@@ -28,20 +28,72 @@ app.get("/",(req,res)=>{
   });
 
 app.get("/url/emotion", (req,res) => {
-
-    return res.send({"happy":"90","sad":"10"});
+    let nluinstance = getNLUInstance();
+    const analyzeParams = {
+        'html':req,
+        'features':{
+            'emotion':{
+                'targets':[]
+            }
+        }
+    }
+    nluinstance.analyze(analyzeParams).then(analysisResults => {
+        res.send(JSON.stringify(analysisResults),null,2);
+    }).catch(err =>{
+        res.send(err.toString());
+    })
 });
 
 app.get("/url/sentiment", (req,res) => {
-    return res.send("url sentiment for "+req.query.url);
+    let nluinstance = getNLUInstance();
+    const analyzeParams = {
+        'html':req,
+        'features':{
+            'sentiment':{
+                'targets':[]
+            }
+        }
+    }
+    nluinstance.analyze(analyzeParams).then(analysisResults => {
+        res.send(JSON.stringify(analysisResults),null,2);
+    }).catch(err =>{
+        res.send(err.toString());
+    })
 });
 
 app.get("/text/emotion", (req,res) => {
-    return res.send({"happy":"10","sad":"90"});
+    let nluinstance = getNLUInstance();
+    const analyzeParams = {
+        'html':req,
+        'features':{
+            'emotion':{
+                'targets':[]
+            }
+        }
+    }
+    nluinstance.analyze(analyzeParams).then(analysisResults => {
+        res.send(JSON.stringify(analysisResults),null,2);
+    }).catch(err =>{
+        res.send(err.toString());
+    })
+    
 });
 
 app.get("/text/sentiment", (req,res) => {
-    return res.send("text sentiment for "+req.query.text);
+    let nluinstance = getNLUInstance();
+    const analyzeParams = {
+        'html':req,
+        'features':{
+            'sentiment':{
+                'targets':[]
+            }
+        }
+    }
+    nluinstance.analyze(analyzeParams).then(analysisResults => {
+        res.send(JSON.stringify(analysisResults),null,2);
+    }).catch(err =>{
+        res.send(err.toString());
+    })
 });
 
 let server = app.listen(8080, () => {
