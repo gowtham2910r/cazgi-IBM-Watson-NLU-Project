@@ -28,72 +28,98 @@ app.get("/",(req,res)=>{
   });
 
 app.get("/url/emotion", (req,res) => {
-    let nluinstance = getNLUInstance();
-    const analyzeParams = {
-        'html':req,
-        'features':{
-            'emotion':{
-                'targets':[]
-            }
-        }
-    }
-    nluinstance.analyze(analyzeParams).then(analysisResults => {
-        res.send(analysisResults.result.analyzed_text);
-    }).catch(err =>{
-        res.send(err.toString());
-    })
+
+        const analyzeParams = {
+  'url' : req.query.url,
+  'features': {
+    'entities': {
+      'emotion': true,
+      'limit': 2,
+    },
+    'keywords': {
+      'emotion': true,
+      'limit': 2,
+    },
+  },
+};
+getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    console.log(JSON.stringify(analysisResults.result.keywords[0].emotion, null, 2));
+    return res.send(JSON.stringify(analysisResults.result.keywords[0].emotion, null, 2));
+  })
+  .catch(err => {
+    console.log('error:', err);
+  });
 });
 
 app.get("/url/sentiment", (req,res) => {
-    let nluinstance = getNLUInstance();
     const analyzeParams = {
-        'html':req,
-        'features':{
-            'sentiment':{
-                'targets':[]
-            }
-        }
-    }
-    nluinstance.analyze(analyzeParams).then(analysisResults => {
-        res.send(analysisResults.result.analyzed_text);
-    }).catch(err =>{
-        res.send(err.toString());
-    })
+  'url' : req.query.url,
+  'features': {
+    'entities': {
+      'sentiment': true,
+      'limit': 2,
+    },
+    'keywords': {
+      'sentiment': true,
+      'limit': 2,
+    },
+  },
+};
+getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    console.log(JSON.stringify(analysisResults.result.keywords[0].sentiment.label, null, 2));
+    return res.send(JSON.stringify(analysisResults.result.keywords[0].sentiment.label, null, 2));
+  })
+  .catch(err => {
+    console.log('error:', err);
+  });
 });
 
 app.get("/text/emotion", (req,res) => {
-    let nluinstance = getNLUInstance();
     const analyzeParams = {
-        'html':req,
-        'features':{
-            'emotion':{
-                'targets':[]
-            }
-        }
-    }
-    nluinstance.analyze(analyzeParams).then(analysisResults => {
-        res.send(analysisResults.result.analyzed_text);
-    }).catch(err =>{
-        res.send(err.toString());
-    })
-    
+  'text' : req.query.text,
+  'features': {
+    'entities': {
+      'emotion': true,
+      'limit': 2,
+    },
+    'keywords': {
+      'emotion': true,
+      'limit': 2,
+    },
+  },
+};
+getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    console.log(JSON.stringify(analysisResults.result.keywords[0].emotion, null, 2));
+    return res.send(JSON.stringify(analysisResults.result.keywords[0].emotion, null, 2));
+  })
+  .catch(err => {
+    console.log('error:', err);
+  });
+
 });
 
 app.get("/text/sentiment", (req,res) => {
-    let nluinstance = getNLUInstance();
     const analyzeParams = {
-        'html':req,
-        'features':{
-            'sentiment':{
-                'targets':[]
-            }
-        }
-    }
-    nluinstance.analyze(analyzeParams).then(analysisResults => {
-        res.send(analysisResults.result.analyzed_text);
-    }).catch(err =>{
-        res.send(err.toString());
-    })
+  'text' : req.query.text,
+  'features': {
+    'entities': {
+      'sentiment': true,
+      'limit': 2,
+    },
+    'keywords': {
+      'sentiment': true,
+      'limit': 2,
+    },
+  },
+};
+getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+    console.log(JSON.stringify(analysisResults.result.keywords[0].sentiment.label, null, 2));
+    return res.send(JSON.stringify(analysisResults.result.keywords[0].sentiment.label, null, 2));
+  })
+  .catch(err => {
+    console.log('error:', err);
+  });
+
 });
 
 let server = app.listen(8080, () => {
