@@ -38,11 +38,7 @@ app.get("/url/emotion", (req,res) => {
         }
     }
     nluinstance.analyze(analyzeParams).then(analysisResults => {
-<<<<<<< HEAD
         res.send(analysisResults.result.analyzed_text);
-=======
-        res.send(JSON.stringify(analysisResults),null,2);
->>>>>>> d77b20f68cff1adf348785ee9ec8036c53006162
     }).catch(err =>{
         res.send(err.toString());
     })
